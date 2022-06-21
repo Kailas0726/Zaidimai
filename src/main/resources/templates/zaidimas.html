@@ -1,0 +1,98 @@
+<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+
+	<title>Counter-Strike</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+	<style>
+	
+		#top-bar{
+		
+		   width: 1920px;
+	       margin: 0 auto;
+	       height: 70px;
+	       background-color: black;
+		
+	    }
+		
+	   	body {
+	   
+           margin: 0;
+           padding: 0;
+        }
+	
+		.pagr{
+		
+			text-decoration: none;
+		
+		}
+		
+		#grizti{
+        
+        	position: relative;
+        	font-family: Fantasy;
+        	top: 25px;
+        	left: 15px;
+        
+        }
+        
+        #grizti a{
+        
+        	text-decoration: none;
+        	color: white;
+        
+        }
+        
+        #grizti a:hover{
+        
+        	text-decoration: underline;
+        	text-decoration-thickness: 3px;
+        	text-underline-offset: 5px;
+        
+        }
+	
+	</style>
+		
+	<script>
+
+		
+	</script>
+	    
+</head>
+
+<body>
+
+	<div id="top-bar">
+	    
+	    <span id="grizti"><a th:href="@{/pagrindinis}">Grįžti į pagrindinį puslapį</a></span>
+	    
+	</div>
+	
+	<div id="komentaro_pridejimas">
+		<form method="post" action="">
+				<label for="komentaras"><br> Parašykite komentarą: <br></label>
+				<input type="text" name="komentaras" id="komentaras" value="">
+				<input type="hidden" id="id" name="id" value="0">
+				<input type="submit" value="Pridėti">
+				<input type="hidden" id="prideti" name="prideti" value="prideti">
+		</form>
+	</div>
+	
+	<table>
+	
+			<tr th:each="zaidimas : ${zaidimas.getKomentaru_lentele()}" >
+				<td><span th:text="${zaidimas.getKomentaras()} "></span></td>
+				<td><span th:text="${zaidimas.getData()} "></span></td>
+			</tr>	
+			
+	</table>
+	
+</body>
+
+
+</html>

@@ -1,5 +1,8 @@
 package Zaidimu_Web;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,130 +12,51 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class PagrindinisController {
 	
+	@Autowired
+	private ZaidimuLenteleRepository zaidimu_lentele_repository;
+	
+	@Autowired
+	private KomentaruLenteleRepository komentaru_lentele_repository;
+	
 	@RequestMapping(path="/pagrindinis", method={ RequestMethod.GET, RequestMethod.POST })
-    public String pagrindinis(
-			 Model model) {
-
-			
+    public String pagrindinis(@RequestParam(name="id", required=false, defaultValue="0") Integer id
+    		,Model model) {
+		
+			model.addAttribute("zaidimai", zaidimu_lentele_repository.findAll());
+		
 			return "pagrindinis";
 			
-			}
+	}
 	
-	@RequestMapping(path="/csgo", method={ RequestMethod.GET, RequestMethod.POST })
-    public String csgo(
-			 Model model) {
+	@RequestMapping(path="/zaidimas", method={ RequestMethod.GET, RequestMethod.POST })
+    public String zaidimas(@RequestParam(name="i", required=true, defaultValue="0") String id
+    		 , @RequestParam(name="komentaras", required=false, defaultValue="") String komentaras
+    		 , @RequestParam(name="prideti", required=false, defaultValue="neprideti") String prideti
+			 , Model model) {
+		
+		Optional<ZaidimuLentele> zaidimu_lentele1 = zaidimu_lentele_repository.findById(Integer.parseInt(id));
+		ZaidimuLentele zaidimu_lentele = null;
+		if(!zaidimu_lentele1.isEmpty()) {
+			
+			zaidimu_lentele = zaidimu_lentele1.get();
+			
+		}
+		
+		if(prideti.equals("prideti")) {
+			
+			KomentaruLentele komentaru_lentele = new KomentaruLentele(id, komentaras);
+			komentaru_lentele_repository.save(komentaru_lentele);
+			return "redirect:zaidimas?i=" + id;
+			
+		}
+		
 
+		
+		model.addAttribute("zaidimas", zaidimu_lentele);
+		model.addAttribute("komentarai", komentaru_lentele_repository.findAll());
+		return "zaidimas";
 			
-			return "csgo";
-			
-			}
+	}
 	
-	@RequestMapping(path="/gta", method={ RequestMethod.GET, RequestMethod.POST })
-    public String gta(
-			 Model model) {
-
-			
-			return "gta";
-			
-			}
-	
-	@RequestMapping(path="/fifa", method={ RequestMethod.GET, RequestMethod.POST })
-    public String fifa(
-			 Model model) {
-
-			
-			return "fifa";
-			
-			}
-	
-	@RequestMapping(path="/nba", method={ RequestMethod.GET, RequestMethod.POST })
-    public String nba(
-			 Model model) {
-
-			
-			return "nba";
-			
-			}
-	
-	@RequestMapping(path="/wot", method={ RequestMethod.GET, RequestMethod.POST })
-    public String wot(
-			 Model model) {
-
-			
-			return "wot";
-			
-			}
-	
-	@RequestMapping(path="/valorant", method={ RequestMethod.GET, RequestMethod.POST })
-    public String valorant(
-			 Model model) {
-
-			
-			return "valorant";
-			
-			}
-
-	@RequestMapping(path="/lol", method={ RequestMethod.GET, RequestMethod.POST })
-    public String lol(
-			 Model model) {
-
-			
-			return "lol";
-			
-			}
-	
-	@RequestMapping(path="/minecraft", method={ RequestMethod.GET, RequestMethod.POST })
-    public String minecraft(
-			 Model model) {
-
-			
-			return "minecraft";
-			
-			}
-	
-	@RequestMapping(path="/sot", method={ RequestMethod.GET, RequestMethod.POST })
-    public String sot(
-			 Model model) {
-
-			
-			return "sot";
-			
-			}
-	
-	@RequestMapping(path="/rss6", method={ RequestMethod.GET, RequestMethod.POST })
-    public String rss6(
-			 Model model) {
-
-			
-			return "rss6";
-			
-			}
-	
-	@RequestMapping(path="/pubg", method={ RequestMethod.GET, RequestMethod.POST })
-    public String pubg(
-			 Model model) {
-
-			
-			return "pubg";
-			
-			}
-	
-	@RequestMapping(path="/dbd", method={ RequestMethod.GET, RequestMethod.POST })
-    public String dbd(
-			 Model model) {
-
-			
-			return "dbd";
-			
-			}
-	
-	@RequestMapping(path="/thread", method={ RequestMethod.GET, RequestMethod.POST })
-    public String thread(
-			 Model model) {
-
-			
-			return "thread";
-			
-			}
 	
 }

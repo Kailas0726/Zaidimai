@@ -57,6 +57,11 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         }
 	
 	</style>
+	
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 		
 	<script>
 	
@@ -83,6 +88,35 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 		  
 		}
 		
+		/*$(document).ready(function(){
+			var dialog, form;
+			
+			function addVartotojas() {
+			
+				form.submit();
+			}
+			
+			dialog = $( "#komentaro_pridejimas" ).dialog({
+			      autoOpen: false,
+			      height: 400,
+			      width: 350,
+			      modal: true,
+			      buttons: {
+				"Pridėti komentarą": addVartotojas,
+				Cancel: function() {
+				dialog.dialog( "close" );
+				}
+			     }
+			});
+			
+			form = dialog.find( "form" );
+			
+			$( "#pridejimo_mygtukas" ).button().on( "click", function() {
+			      dialog.dialog( "open" );
+			});
+			
+		});*/
+		
 	</script>
 	    
 </head>
@@ -106,6 +140,29 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 	<div style="margin-left:130px">
 	
 	  <div id="Komentarai" class="w3-container city" style="display:none">
+	  
+	  
+		<div id="komentaro_pridejimas">
+			<form method="post" action="">
+				<label for="komentaras"><br> Parašykite komentarą: <br></label>
+				<input type="text" name="komentaras" id="komentaras" value="">
+				<input type="hidden" id="id" name="id" value="0">
+				<input type="submit" value="Pridėti">
+				<input type="hidden" id="prideti" name="prideti" value="prideti">
+			</form>
+		</div>
+		
+		<table>
+			<tr th:each="csgo : ${csgo}">
+				<td th:text="${csgo.getKomentaras()}"></td>
+				<td th:text="${csgo.getData()}"></td>
+				<!--<td th:text="${csgo.getZaidimu_lentele()} == null ? '???' : ${csgo.getZaidimu_lentele().getZaidimo_pavadinimas()}"></td>-->
+
+			</tr>
+		</table>
+	  	
+	  	<!--<button id="pridejimo_mygtukas">Pridėti komentarą</button>-->
+	  	
 	  </div>
 	
 	</div>

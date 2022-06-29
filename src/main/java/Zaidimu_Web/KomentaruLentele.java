@@ -1,5 +1,6 @@
 package Zaidimu_Web;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -28,11 +29,17 @@ public class KomentaruLentele {
 	@ColumnDefault(value="CURRENT_TIMESTAMP")
 	@Generated(GenerationTime.INSERT)
 	private String data;
+	
 	private Integer id_zaidimo;
+	private Long user_id;
 	
 	 @ManyToOne
 	 @JoinColumn(name="id_zaidimo", referencedColumnName="id", insertable=false, updatable=false)
 	 private ZaidimuLentele zaidimu_lentele;
+	 
+	 @ManyToOne
+	 @JoinColumn(name="user_id", referencedColumnName="id", insertable=false, updatable=false)
+	 private User user;
 	
 	public KomentaruLentele() {
 		
@@ -43,12 +50,23 @@ public class KomentaruLentele {
 	public KomentaruLentele(String id_zaidimo, String komentaras) {
 		
 		super();
-		this.komentaras = komentaras;
 		this.id_zaidimo = Integer.parseInt(id_zaidimo);
+		this.komentaras = komentaras;
+		//this.user_id = Long.parseLong(user_id);
 		
 	}
 
+	public User getUser() {
+		
+		return user;
+		
+	}
 
+	public void setUser(User user) {
+		
+		this.user = user;
+		
+	}
 
 	public ZaidimuLentele getZaidimu_lentele() {
 		
@@ -108,6 +126,20 @@ public class KomentaruLentele {
 		
 		this.id_zaidimo = id_zaidimo;
 		
-	}	
+	}
+
+	public Long getUser_id() {
+		
+		return user_id;
+		
+	}
+
+	public void setUser_id(Long user_id) {
+		
+		this.user_id = user_id;
+		
+	}
+	
+	
 	
 }

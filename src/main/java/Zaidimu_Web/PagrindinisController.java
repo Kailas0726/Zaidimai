@@ -3,6 +3,8 @@ package Zaidimu_Web;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,9 @@ public class PagrindinisController {
 	
 	@Autowired
 	private KomentaruLenteleRepository komentaru_lentele_repository;
+	
+	@Autowired
+	private UserRepository user_repository;
 	
 	@RequestMapping(path="/pagrindinis", method={ RequestMethod.GET, RequestMethod.POST })
     public String pagrindinis(@RequestParam(name="id", required=false, defaultValue="0") Integer id
@@ -43,6 +48,19 @@ public class PagrindinisController {
 		}
 		
 		if(prideti.equals("prideti")) {
+			
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			String username  = principal.toString();
+			
+			if (principal instanceof UserDetails) {
+				
+				username = ((UserDetails)principal).getUsername();
+			
+			}
+			System.out.println(username);
+			User user = user_repository.findByEmail(username);
+			System.out.println(user.getId());
 			
 			KomentaruLentele komentaru_lentele = new KomentaruLentele(id, komentaras);
 			komentaru_lentele_repository.save(komentaru_lentele);

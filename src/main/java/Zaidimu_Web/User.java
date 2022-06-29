@@ -1,6 +1,10 @@
 package Zaidimu_Web;
 
+import java.util.List;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
  
 @Entity
 @Table(name = "users")
@@ -21,6 +25,23 @@ public class User {
      
     @Column(name = "last_name", nullable = false, length = 20)
     private String lastName;
+    
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName="id", insertable=false, updatable=false)    
+    private List<KomentaruLentele> komentaru_lentele;
+
+	public List<KomentaruLentele> getKomentaru_lentele() {
+		
+		return komentaru_lentele;
+		
+	}
+
+	public void setKomentaru_lentele(List<KomentaruLentele> komentaru_lentele) {
+		
+		this.komentaru_lentele = komentaru_lentele;
+		
+	}
 
 	public Long getId() {
 		return id;

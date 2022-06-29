@@ -40,8 +40,6 @@ public class ZaidimuLentele {
 		
 	}
 
-
-
 	public List<KomentaruLentele> getKomentaru_lentele() {
 		return komentaru_lentele;
 	}

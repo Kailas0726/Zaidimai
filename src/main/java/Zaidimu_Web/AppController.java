@@ -11,12 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  
 @Controller
 public class AppController {
+	
+	@Autowired
+	private ZaidimuLenteleRepository zaidimu_lentele_repository;
  
     @Autowired
     private UserRepository userRepo;
      
     @GetMapping("/")
-    public String viewHomePage() {
+    public String viewHomePage(Model model) {
+    	
+    	model.addAttribute("zaidimai", zaidimu_lentele_repository.findAll());
+    	
         return "pagrindinis";
     }
     

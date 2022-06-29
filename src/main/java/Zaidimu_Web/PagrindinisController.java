@@ -58,11 +58,12 @@ public class PagrindinisController {
 				username = ((UserDetails)principal).getUsername();
 			
 			}
-			System.out.println(username);
-			User user = user_repository.findByEmail(username);
-			System.out.println(user.getId());
 			
-			KomentaruLentele komentaru_lentele = new KomentaruLentele(id, komentaras);
+			//System.out.println(username);
+			User user = user_repository.findByEmail(username);
+			//System.out.println(user.getId());
+			
+			KomentaruLentele komentaru_lentele = new KomentaruLentele(id, komentaras, user.getId());
 			komentaru_lentele_repository.save(komentaru_lentele);
 			return "redirect:zaidimas?i=" + id;
 			

@@ -47,12 +47,12 @@ public class KomentaruLentele {
 
 	}
 	
-	public KomentaruLentele(String id_zaidimo, String komentaras) {
+	public KomentaruLentele(String id_zaidimo, String komentaras, Long user_id) {
 		
 		super();
 		this.id_zaidimo = Integer.parseInt(id_zaidimo);
 		this.komentaras = komentaras;
-		//this.user_id = Long.parseLong(user_id);
+		this.user_id = user_id;
 		
 	}
 

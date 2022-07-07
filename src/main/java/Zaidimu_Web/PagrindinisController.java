@@ -76,6 +76,23 @@ public class PagrindinisController {
 		return "zaidimas";
 			
 	}
-	
+
+	@RequestMapping(path="/informacija", method={ RequestMethod.GET, RequestMethod.POST })
+    public String informacija(@RequestParam(name="i", required=true, defaultValue="0") String id
+			 , Model model) {
+		
+		Optional<ZaidimuLentele> zaidimu_lentele1 = zaidimu_lentele_repository.findById(Integer.parseInt(id));
+		ZaidimuLentele zaidimu_lentele = null;
+		if(!zaidimu_lentele1.isEmpty()) {
+			
+			zaidimu_lentele = zaidimu_lentele1.get();
+			
+		}
+		
+		model.addAttribute("zaidimas", zaidimu_lentele);
+		
+		return "informacija";
+			
+	}
 	
 }

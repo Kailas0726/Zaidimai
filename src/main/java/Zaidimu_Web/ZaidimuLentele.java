@@ -21,6 +21,7 @@ public class ZaidimuLentele {
 	private Integer id;
 	private String zaidimo_pavadinimas;
 	private String logo_failas;
+	private String informacija;
 	
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
@@ -82,6 +83,19 @@ public class ZaidimuLentele {
 		
 		this.logo_failas = logo_failas;
 		
-	}	
+	}
+
+	public String getInformacija() {
+		
+		return informacija;
+		
+	}
+
+	public void setInformacija(String informacija) {
+		
+		this.informacija = informacija;
+		
+	}
+	
 	
 }
